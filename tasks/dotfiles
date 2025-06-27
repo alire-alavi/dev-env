@@ -1,0 +1,16 @@
+#!/usr/bin/bash
+
+pre_tasks=("././tasks/core-setups/build-essentials")
+
+sudo dnf install stow -y
+rm -rf ~/.dotfiles
+git clone https://github.com/lavirez/.dotfiles.git ~/.dotfiles
+cd ~/.dotfiles/nvim/.config/nvim
+git clone https://github.com/lavirez/init.vim.git .
+cd ~/.dotfiles
+stow aws
+stow bin
+stow nvim
+stow tmux
+stow git
+stow zsh
