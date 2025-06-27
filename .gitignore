@@ -1,1 +1,3 @@
 neovim/
+keys/ssh/raw
+.env
