@@ -1,0 +1,66 @@
+#!/usr/bin/bash
+
+script_dir=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
+
+# list of files that has been already ran if was in the preq list
+ran=()
+
+filter=""
+
+# dry run to test
+dryrun="0"
+
+while [[ $# > 0  ]]; do 
+	if [[ $1 == "--dry" ]]; then
+		dry="1"
+	else
+		filter="$1"
+	fi
+	shift
+done
+
+already_ran() {
+	for task in "${ran[@]}"; do
+		if [[ "$task" == $1 ]]; then
+			return 0
+		fi
+	done
+	return 1
+}
+
+log () {
+	if [[ $dry == "1" ]]; then
+		echo "[DRY-RUN]: $@"
+	else
+		echo "$@"
+	fi
+}
+
+cd $script_dir
+
+tasks=$(find ./tasks -maxdepth 2 -mindepth 1 -executable -type f)
+
+execute() {
+	log "execute $@"
+	if [[ $dry == "1" ]]; then
+		return
+	fi 
+	"$@"
+}
+
+for task in $tasks; do
+	log "Filtering the tasks"
+	if echo "$task" | grep -qv "$filter"; then
+		log "Filtering $task"
+		continue
+	fi
+
+	# if already_ran $task; then
+	# log "Already ran $task, skipping ...\n"
+	#continue
+	#	else
+	execute ./$task
+	#fi
+done
+
+
