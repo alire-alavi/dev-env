@@ -1,0 +1,14 @@
+#!/usr/bin/bash
+
+sudo dnf install zsh
+chsh -s `which zsh`
+
+# Install omz
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+# Plugin for auto suggest
+git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/plugins/zsh-autosuggestions
+sed -i 's/(git/(git zsh-autosuggestions/' ~/.zshrc
+
+
+
