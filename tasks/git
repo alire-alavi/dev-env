@@ -1,5 +1,5 @@
 #!/usr/bin/bash
 
-git config --global user.email "alirezaalavirazav@yahoo.com"
+git config --global user.email "alirezaalavirazavi@yahoo.com"
 git config --global user.name "alire-alavi"
 
