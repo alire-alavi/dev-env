@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+root_dir="$(cd $(dirname "${BASH_SOURCE[1]}") && pwd)/keys/ssh"
+
+names=("alire_alavi_github" "lavirez_github")
+
+# Decrypt the SSH keys
+for name in $names; do
+    gpg --quiet --batch --yes --decrypt --passphrase="$SSH_KEY_PASS" \
+        --output "~/.ssh/$name" "$root_dir/$name.gpg"
+
+    gpg --quiet --batch --yes --decrypt --passphrase="$SSH_KEY_PASS" \
+        --output "~/.ssh/$name.pub" "$root_dir/$name.pub.gpg"
+
+    chmod 600 "~/.ssh/$name"
+Done
+
+# Copy the config
+cp "$root_dir/config" ~/.ssh/
+
+
