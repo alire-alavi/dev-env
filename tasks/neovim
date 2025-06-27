@@ -1,0 +1,14 @@
+#!/usr/bin/bash
+
+pre_tasks=("././tasks/core-setups/build-essentials")
+
+# for task in $pre_tasks; do
+#	echo task
+# done
+
+rm -rf ~/neovim
+
+# clone the repo
+git clone --depth 1 --branch release-0.11 --single-branch https://github.com/neovim/neovim.git
+cd neovim && sudo make -j 20
+sudo make install
