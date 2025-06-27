@@ -49,9 +49,7 @@ execute() {
 }
 
 for task in $tasks; do
-	log "Filtering the tasks"
 	if echo "$task" | grep -qv "$filter"; then
-		log "Filtering $task"
 		continue
 	fi
 
@@ -59,6 +57,7 @@ for task in $tasks; do
 	# log "Already ran $task, skipping ...\n"
 	#continue
 	#	else
+    log "Running $task"
 	execute ./$task
 	#fi
 done
