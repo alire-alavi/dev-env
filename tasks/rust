@@ -1,0 +1,24 @@
+#!/usr/bin/bash
+
+echo "🦀 Installing Rust" 
+
+if ! command -v rustup &> /dev/null; then
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+  source "$HOME/.cargo/env"
+else
+  echo "✔️ rustup already installed"
+fi
+
+echo "rust-analyzer..."
+RA_BIN="/usr/local/bin/rust-analyzer"
+
+if ! command -v rust-analyzer &>/dev/null; then
+  curl -L https://github.com/rust-lang/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu \
+    -o rust-analyzer
+  chmod +x rust-analyzer
+  sudo mv rust-analyzer "$RA_BIN"
+else
+  echo "rust-analyzer already installed"
+fi
+
+echo "✔️ Rust is all setup"
